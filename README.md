@@ -96,3 +96,66 @@ Examine frontend React components:
 ---
 
 Good luck! You will be evaluated based on the cleanliness, correctness, efficiency, and safety of your refactoring.
+
+---
+
+## ✅ Issues Found & Fixed
+
+> Full details, before/after context, and reasoning for every fix: **[ChangesFixed.md](ChangesFixed.md)**
+
+### 🔐 Challenge 1 — Security (12 fixes)
+
+| # | Issue | File |
+|---|---|---|
+| 1 | Plaintext passwords logged to stdout on every login and registration | `routes/auth.js` |
+| 2 | Hardcoded JWT secret fallback — app ran insecurely if env var missing | `routes/auth.js`, `middleware/auth.js` |
+| 3 | JWT expiry set to 365 days — stolen tokens valid for a year | `routes/auth.js` |
+| 4 | `ignoreExpiration: true` — expired tokens accepted as valid forever | `middleware/auth.js` |
+| 5 | JWT verification error detail leaked to client (`details: error.message`) | `middleware/auth.js` |
+| 6 | `authorizeAdminOnlyLegacy` role check was commented out — any user could delete patients | `middleware/auth.js` |
+| 7 | SQL injection via raw string interpolation in doctor search (`$queryRawUnsafe`) | `routes/doctors.js` |
+| 8 | Registration response included the bcrypt password hash | `routes/auth.js` |
+| 9 | Client could self-assign any role including `ADMIN` on registration | `routes/auth.js` |
+| 10 | Stack traces and DB error messages leaked in error responses | `routes/auth.js`, `index.js` |
+| 11 | Wildcard CORS (`cors()`) — any origin could call the API | `index.js` |
+| 12 | `PATCH` status endpoints accepted arbitrary strings — no enum validation | `routes/appointments.js`, `routes/queue.js` |
+
+---
+
+### ⚡ Challenge 2 — Backend Performance (4 fixes)
+
+| # | Issue | File |
+|---|---|---|
+| 1 | N+1 queries in appointments endpoint — 2 extra DB queries per row in a loop | `routes/appointments.js` |
+| 2 | 4 independent DB aggregates in doctor stats run sequentially instead of in parallel | `routes/doctors.js` |
+| 3 | Report endpoint: sequential per-doctor loop with nested queries + artificial 80ms sleep per doctor | `routes/reports.js` |
+| 4 | Queue check-in race condition — read-then-write with 350ms artificial sleep allowed duplicate token numbers | `routes/queue.js` |
+
+---
+
+### 💾 Challenge 3 — Database & Schema (4 fixes)
+
+| # | Issue | File |
+|---|---|---|
+| 1 | No unique constraint on `(doctorId, appointmentDate)` — double-booking was structurally possible | `schema.prisma` |
+| 2 | 7 missing indexes on frequently filtered/sorted columns across all models | `schema.prisma` |
+| 3 | No `onDelete` cascade rules — deleting a patient/doctor left orphaned rows or silently failed | `schema.prisma` |
+| 4 | Patient list fetched entire table into memory before filtering/paginating in JS | `routes/patients.js` |
+
+---
+
+### 🖥️ Challenge 4 — Frontend (3 fixes)
+
+| # | Issue | File |
+|---|---|---|
+| 1 | `setInterval` with no cleanup — each mount stacked a new polling timer that never stopped | `queue/page.js` |
+| 2 | Search fired an API call on every keystroke — no debounce | `dashboard/page.js` |
+| 3 | `medicalHistory.toUpperCase()` with no null check — crashed the entire page for patients with no history | `dashboard/page.js` |
+
+---
+
+### 🏗️ Challenge 5 — Feature Delivery (1 fix)
+
+| # | Issue | File |
+|---|---|---|
+| 1 | `/patients/:id/history-records` route was entirely missing — every click led to a 404 | `patients/[id]/history-records/page.js` |
