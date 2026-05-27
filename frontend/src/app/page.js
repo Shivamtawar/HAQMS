@@ -5,77 +5,80 @@ import { Activity, ShieldAlert, MonitorPlay, Users, CalendarDays, ArrowRight } f
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen justify-between py-12 px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto w-full text-center mt-12 sm:mt-20">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 text-sm font-medium mb-6 animate-pulse">
-          <Activity className="h-4 w-4" />
-          Live Queue Tracking Enabled
-        </div>
-        
-        <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">
-          HAQMS
-        </h1>
-        <p className="text-xl sm:text-2xl font-bold mt-2 text-slate-700 dark:text-slate-200">
-          Hospital Appointment & Queue Management System
-        </p>
-        
-        <p className="mt-6 text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
-          Welcome to the HAQMS testing environment. This portal serves as a deliberately flawed, 
-          fully functional reference application designed to evaluate software engineering candidates.
-        </p>
+    <div className="min-h-screen flex flex-col gradient-bg">
+      <div className="flex-1 flex flex-col items-center justify-center py-20 px-6">
+        <div className="w-full max-w-3xl mx-auto text-center">
 
-        {/* Action Cards */}
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 max-w-2xl mx-auto">
-          {/* Card 1: Staff Portal */}
-          <Link href="/login" className="group">
-            <div className="glass p-8 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 text-left hover:border-teal-500/50 hover:shadow-teal-500/10 transition-all duration-300 transform hover:-translate-y-1">
-              <div className="p-3 bg-teal-500/10 text-teal-600 dark:text-teal-400 rounded-xl w-fit group-hover:bg-teal-500 group-hover:text-white transition-colors duration-300">
-                <Users className="h-6 w-6" />
-              </div>
-              <h2 className="mt-6 text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                Staff Portal
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </h2>
-              <p className="mt-2 text-slate-500 dark:text-slate-400 text-sm">
-                Access your specialized dashboard. Supports role-based workflows for Administrators, Doctors, and Receptionists.
-              </p>
-            </div>
-          </Link>
-
-          {/* Card 2: Public Queue Monitor */}
-          <Link href="/queue" className="group">
-            <div className="glass p-8 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 text-left hover:border-teal-500/50 hover:shadow-teal-500/10 transition-all duration-300 transform hover:-translate-y-1">
-              <div className="p-3 bg-teal-500/10 text-teal-600 dark:text-teal-400 rounded-xl w-fit group-hover:bg-teal-500 group-hover:text-white transition-colors duration-300">
-                <MonitorPlay className="h-6 w-6" />
-              </div>
-              <h2 className="mt-6 text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                Live Public Monitor
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </h2>
-              <p className="mt-2 text-slate-500 dark:text-slate-400 text-sm">
-                Real-time active queue board tracking patient check-ins and calling tokens by physician. Built with live refresh.
-              </p>
-            </div>
-          </Link>
-        </div>
-
-        {/* Assessment Notice Box */}
-        <div className="mt-16 glass max-w-xl mx-auto p-6 rounded-2xl border border-rose-500/20 shadow-md flex gap-4 text-left">
-          <div className="p-2 bg-rose-500/10 text-rose-500 rounded-lg h-fit">
-            <ShieldAlert className="h-6 w-6" />
+          {/* Live status chip */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-xs font-semibold mb-8 tracking-wide">
+            <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse" />
+            Live Queue Tracking Active
           </div>
-          <div>
-            <h3 className="font-bold text-slate-800 dark:text-slate-100">Assessment Environment Notice</h3>
-            <p className="mt-1 text-slate-500 dark:text-slate-400 text-sm">
-              This repository contains critical architectural, database performance, frontend memory, and security bugs. 
-              Your evaluation criteria will measure your ability to identify, trace, profile, and fix these issues systematically.
-            </p>
+
+          {/* Wordmark */}
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="p-2.5 bg-teal-600 rounded-xl shadow-md">
+              <Activity className="h-6 w-6 text-white" />
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900">
+              HAQMS
+            </h1>
+          </div>
+          <p className="text-lg sm:text-xl font-medium text-slate-500 mb-3">
+            Hospital Appointment &amp; Queue Management System
+          </p>
+          <p className="text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
+            A deliberately flawed reference application for evaluating software engineering candidates.
+            Find and fix real architectural, security, and performance issues.
+          </p>
+
+          {/* Navigation cards */}
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 max-w-2xl mx-auto">
+            <Link href="/login" className="group text-left glass rounded-2xl p-7 shadow-sm border border-slate-200 card-hover">
+              <div className="inline-flex p-2.5 bg-teal-50 border border-teal-100 rounded-xl text-teal-600 mb-5 group-hover:bg-teal-600 group-hover:text-white group-hover:border-teal-600 transition-colors duration-200">
+                <Users className="h-5 w-5" />
+              </div>
+              <h2 className="text-base font-bold text-slate-800 flex items-center gap-1.5">
+                Staff Portal
+                <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200" />
+              </h2>
+              <p className="mt-1.5 text-sm text-slate-500 leading-relaxed">
+                Role-based dashboards for Administrators, Doctors, and Receptionists.
+              </p>
+            </Link>
+
+            <Link href="/queue" className="group text-left glass rounded-2xl p-7 shadow-sm border border-slate-200 card-hover">
+              <div className="inline-flex p-2.5 bg-teal-50 border border-teal-100 rounded-xl text-teal-600 mb-5 group-hover:bg-teal-600 group-hover:text-white group-hover:border-teal-600 transition-colors duration-200">
+                <MonitorPlay className="h-5 w-5" />
+              </div>
+              <h2 className="text-base font-bold text-slate-800 flex items-center gap-1.5">
+                Live Queue Monitor
+                <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200" />
+              </h2>
+              <p className="mt-1.5 text-sm text-slate-500 leading-relaxed">
+                Public display board with real-time patient call tokens. Refreshes every 3 seconds.
+              </p>
+            </Link>
+          </div>
+
+          {/* Assessment notice */}
+          <div className="mt-10 max-w-xl mx-auto glass rounded-2xl p-5 border border-amber-200/80 bg-amber-50/50 text-left flex gap-4 shadow-sm">
+            <div className="shrink-0 mt-0.5">
+              <ShieldAlert className="h-5 w-5 text-amber-600" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-700">Assessment Environment</p>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                This codebase contains intentional security vulnerabilities, N+1 query patterns,
+                race conditions, and frontend memory leaks. Evaluate, trace, and fix them.
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <footer className="text-center text-slate-400 dark:text-slate-500 text-xs mt-12">
-        HAQMS v1.0.0-deliberate-bugs &copy; {new Date().getFullYear()} Candidate Evaluation Framework.
+      <footer className="text-center text-slate-400 text-xs py-6 border-t border-slate-100">
+        HAQMS v1.0.0 &mdash; Candidate Evaluation Framework &copy; {new Date().getFullYear()}
       </footer>
     </div>
   );

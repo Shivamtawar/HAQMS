@@ -1,43 +1,43 @@
 'use client';
 
 import Link from 'next/link';
-import { ShieldAlert, ArrowLeft, Activity } from 'lucide-react';
+import { Activity, ArrowLeft, FileQuestion } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col min-h-screen justify-center items-center py-12 px-6 lg:px-8 text-center">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <Link href="/" className="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 font-extrabold text-3xl mb-8">
-          <Activity className="h-8 w-8 animate-pulse" />
-          HAQMS
-        </Link>
-        
-        <div className="glass p-8 rounded-2xl border border-rose-500/20 shadow-xl max-w-sm mx-auto">
-          <div className="p-4 bg-rose-500/10 text-rose-500 rounded-full w-fit mx-auto mb-6">
-            <ShieldAlert className="h-10 w-10 animate-bounce" />
-          </div>
-          
-          <h2 className="text-4xl font-black text-slate-800 dark:text-slate-100">404</h2>
-          <h3 className="mt-2 text-xl font-bold text-slate-800 dark:text-slate-100">
-            Page Not Found / Incomplete
-          </h3>
-          
-          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
-            <strong>Candidate Mission Note:</strong> This route is deliberately left incomplete! 
-            Clicking a &ldquo;View Medical Records&rdquo; link triggers this 404. 
-            Your task might include building the missing page component to fetch and render patient records.
-          </p>
+    <div className="min-h-screen flex flex-col items-center justify-center gradient-bg px-4 py-12 text-center">
 
-          <div className="mt-8">
-            <Link
-              href="/dashboard"
-              className="glow-btn inline-flex items-center justify-center gap-2 py-2.5 px-4 border border-transparent rounded-lg shadow-md text-sm font-bold text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-300 w-full"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to Dashboard
-            </Link>
-          </div>
+      <Link href="/" className="flex items-center gap-2.5 mb-12 group">
+        <div className="p-2 bg-teal-600 rounded-xl shadow-md group-hover:bg-teal-700 transition-colors">
+          <Activity className="h-5 w-5 text-white" />
         </div>
+        <span className="text-2xl font-black text-slate-900 tracking-tight">HAQMS</span>
+      </Link>
+
+      <div className="glass rounded-2xl border border-slate-200 shadow-lg p-10 max-w-sm w-full">
+        <div className="inline-flex p-4 bg-slate-100 rounded-2xl mb-6">
+          <FileQuestion className="h-8 w-8 text-slate-400" />
+        </div>
+
+        <h1 className="text-5xl font-black text-slate-800 tracking-tight">404</h1>
+        <h2 className="mt-2 text-lg font-semibold text-slate-700">Page not found</h2>
+
+        <div className="mt-5 p-4 rounded-xl bg-amber-50 border border-amber-200 text-left">
+          <p className="text-xs font-semibold text-amber-800 uppercase tracking-wide mb-1">Candidate Note</p>
+          <p className="text-sm text-amber-700 leading-relaxed">
+            This route was intentionally left incomplete. The &ldquo;View Medical Records&rdquo; link
+            triggers this 404 — your task includes building the missing page to fetch and render
+            patient records.
+          </p>
+        </div>
+
+        <Link
+          href="/dashboard"
+          className="glow-btn mt-6 inline-flex items-center justify-center gap-2 w-full py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Dashboard
+        </Link>
       </div>
     </div>
   );
