@@ -16,15 +16,8 @@ export default function Dashboard() {
   const { user, token, API_BASE_URL, logout } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!user) router.push('/login');
-  }, [user]);
-
-  if (!user) return null;
-
-  const [activeTab, setActiveTab] = useState(
-    user.role === 'ADMIN' ? 'reports' : user.role === 'RECEPTIONIST' ? 'patients' : 'appointments'
-  );
+  // ── All hooks must come before any early return ───────────────────────────────
+  const [activeTab, setActiveTab] = useState('patients');
 
   // ── Receptionist state ──────────────────────────────────────────────────────
   const [patients, setPatients] = useState([]);
@@ -59,6 +52,12 @@ export default function Dashboard() {
   const [adminReportLoading, setAdminReportLoading] = useState(false);
   const [adminSearchQuery, setAdminSearchQuery] = useState('');
 
+  // Set correct default tab once user is known
+  useEffect(() => {
+    if (!user) { router.push('/login'); return; }
+    setActiveTab(user.role === 'ADMIN' ? 'reports' : user.role === 'RECEPTIONIST' ? 'patients' : 'appointments');
+  }, [user]);
+
   // ── Receptionist functions ───────────────────────────────────────────────────
   const fetchPatients = async (page = 1) => {
     setPatientsLoading(true);
@@ -85,7 +84,7 @@ export default function Dashboard() {
 
   const searchDebounceRef = useRef(null);
   useEffect(() => {
-    if (user.role !== 'RECEPTIONIST' && user.role !== 'ADMIN') return;
+    if (!user || (user.role !== 'RECEPTIONIST' && user.role !== 'ADMIN')) return;
     clearTimeout(searchDebounceRef.current);
     searchDebounceRef.current = setTimeout(() => fetchPatients(1), 350);
     return () => clearTimeout(searchDebounceRef.current);
@@ -215,7 +214,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (user.role === 'DOCTOR' && doctorsList.length > 0) fetchDoctorWorklist();
+    if (user && user.role === 'DOCTOR' && doctorsList.length > 0) fetchDoctorWorklist();
   }, [doctorsList]);
 
   const handleUpdateQueueStatus = async (tokenId, newStatus) => {
@@ -274,6 +273,8 @@ export default function Dashboard() {
   };
 
   // ── Helpers ───────────────────────────────────────────────────────────────────
+  if (!user) return null;
+
   const msgType = (msg) => msg?.startsWith('success:') ? 'success' : 'error';
   const msgText = (msg) => msg?.replace(/^(success|error):/, '') || '';
 
